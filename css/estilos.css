@@ -1,4 +1,10 @@
-* {
+/* ============================================================
+   RESET Y BASE
+   ============================================================ */
+
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -6,79 +12,392 @@
 
 body {
   min-height: 100vh;
-  background-color: lightgrey;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
+  background-color: #e8e0f0;
   font-family: "Mona Sans", sans-serif;
-  font-optical-sizing: auto;
-  font-weight: 500px;
-  font-style: normal;
+  font-size: 15px;
+  font-weight: 500;
+  color: #1a1a2e;
 }
 
-.contenedor {
+/* Foco visible para navegación con teclado */
+:focus-visible {
+  outline: 3px solid #ff00cc;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   TOAST (MICROFEEDBACK)
+   ============================================================ */
+
+#toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(16px);
+  background: #1a1a2e;
+  color: #fff;
+  padding: 10px 22px;
+  border-radius: 24px;
+  font-size: 14px;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+  z-index: 100;
+  white-space: nowrap;
+}
+
+#toast.visible {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ============================================================
+   LAYOUT PRINCIPAL
+   ============================================================ */
+
+.app {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  padding: 24px;
+  min-height: 100vh;
+  align-items: flex-start;
+}
+
+/* ============================================================
+   PANEL DE CONTROLES (aside)
+   ============================================================ */
+
+.panel-control {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 30%;
-  height: 50%;
-  margin: 15px;
-  padding: 20px;
-  gap: 15px;
-  background-image: linear-gradient(blueviolet, rgb(210, 175, 243));
+  gap: 18px;
+  width: 280px;
+  flex-shrink: 0;
+  padding: 24px;
+  background-image: linear-gradient(160deg, #8a2be2, #c9a0f5);
   border-radius: 16px;
-  border: 2px solid blueviolet;
+  border: 2px solid #8a2be2;
+  position: sticky;
+  top: 24px;
 }
 
 .titulo {
-  font-size: 24px;
-  font-weight: 700px;
+  font-size: 22px;
+  font-weight: 700;
+  color: #fff;
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
-label {
-  font-size: 16px;
-  font-weight: 500;
+/* Cada fila de control */
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border: none; /* para fieldset */
+  padding: 0;   /* para fieldset */
 }
 
-.contenedor .opciones {
-  border-radius: 4px;
-  border-color: blueviolet;
-  padding: 4px 8px;
-  width: 80px;
+.campo-label,
+.campo > label,
+.campo > legend {
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  letter-spacing: 0.02em;
 }
 
-.button {
+/* Grupo de radios */
+.radio-grupo {
   display: flex;
   flex-direction: row;
-  border-radius: 8px;
-  border: 2px solid blueviolet;
-  padding: 8px;
-  background-color: white;
-  color: blueviolet;
-}
-
-.button:hover {
-  background-color: blueviolet;
-  color: white;
-}
-
-.elemento {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
   align-items: center;
-  margin: 10px;
-  width: 100px;
-  height: 100px;
+  gap: 10px;
 }
+
+.radio-grupo label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #fff;
+  cursor: pointer;
+}
+
+.radio-grupo input[type="radio"] {
+  cursor: pointer;
+  accent-color: #fff;
+}
+
+/* Fila color picker + botón aleatorio */
+.color-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+input[type="color"] {
+  width: 48px;
+  height: 36px;
+  border-radius: 6px;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  background: none;
+  padding: 2px;
+  flex-shrink: 0;
+}
+
+/* Select */
+.opciones {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  background-color: #fff;
+  color: #4a0080;
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* Botón principal */
+.btn-primario {
+  padding: 11px 16px;
+  border-radius: 8px;
+  border: 2px solid #fff;
+  background-color: #fff;
+  color: #6a0dad;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  margin-top: 4px;
+}
+
+.btn-primario:hover {
+  background-color: #6a0dad;
+  color: #fff;
+}
+
+/* Botón secundario (Aleatorio) */
+.btn-secundario {
+  padding: 7px 12px;
+  border-radius: 6px;
+  border: 2px solid rgba(255, 255, 255, 0.7);
+  background-color: transparent;
+  color: #fff;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-secundario:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ============================================================
+   PANEL DE RESULTADO (main)
+   ============================================================ */
+
+.panel-resultado {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+
+/* ============================================================
+   PALETA DE COLORES
+   ============================================================ */
 
 .paleta {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+  gap: 14px;
+}
+
+/* Animación de aparición */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.elemento {
+  position: relative;
+  width: 110px;
+  height: 110px;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  animation: fadeInUp 0.35s ease both;
+  animation-delay: var(--delay, 0ms);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border: 3px solid transparent;
+}
+
+.elemento:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+}
+
+.elemento.bloqueado {
+  border-color: #fff;
+}
+
+/* Etiqueta del código de color */
+.color-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  font-size: 10px;
+  font-family: monospace;
+  text-align: center;
+  padding: 5px 3px;
+  line-height: 1.3;
+}
+
+/* Botón de bloqueo */
+.lock-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  display: flex;
   align-items: center;
-  width: auto;
-  height: auto;
-  border-color: brown;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.4);
+  font-size: 13px;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+  line-height: 1;
+}
+
+.elemento:hover .lock-btn,
+.elemento:focus-within .lock-btn {
+  opacity: 1;
+}
+
+.elemento.bloqueado .lock-btn {
+  opacity: 1;
+  background: rgba(255, 255, 255, 0.75);
+}
+
+/* ============================================================
+   HISTORIAL
+   ============================================================ */
+
+.historial {
+  background: #fff;
+  border-radius: 14px;
+  padding: 20px;
+  box-shadow: 0 2px 14px rgba(100, 0, 180, 0.08);
+}
+
+.historial-titulo {
+  font-size: 17px;
+  font-weight: 700;
+  color: #8a2be2;
+  margin-bottom: 14px;
+}
+
+.historial-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sin-historial {
+  font-size: 14px;
+  color: #aaa;
+}
+
+.historial-item {
+  border: 1px solid #e0d0f5;
+  border-radius: 10px;
+  padding: 12px 14px;
+  background: #faf7ff;
+}
+
+.historial-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 8px;
+}
+
+.historial-fecha {
+  font-size: 12px;
+  color: #999;
+}
+
+.historial-tipo {
+  font-size: 12px;
+  font-weight: 600;
+  color: #8a2be2;
+  background: #ede0ff;
+  padding: 2px 10px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+
+.historial-colores {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.historial-color {
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* ============================================================
+   RESPONSIVE — pantallas pequeñas (≤ 768px)
+   ============================================================ */
+
+@media (max-width: 768px) {
+  .app {
+    flex-direction: column;
+    padding: 16px;
+    gap: 16px;
+  }
+
+  .panel-control {
+    width: 100%;
+    position: static;
+  }
+
+  .elemento {
+    width: 90px;
+    height: 90px;
+  }
+
+  .historial-meta {
+    flex-direction: column;
+    align-items: flex-start;
+  }
 }

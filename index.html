@@ -1,31 +1,93 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Paleta de colores</title>
-    <link href="/styles.css/estilos.css" rel="stylesheet" />
+    <title>Generador de Paleta de Colores</title>
+    <link href="css/estilos.css" rel="stylesheet" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&display=swap"
       rel="stylesheet"
     />
   </head>
   <body>
-    <div class="contenedor">
-      <h1 class="titulo">Paleta de colores</h1>
-      <label for="color">Seleccioná un color:</label>
-      <input type="color" id="selector-color" />
-      <label for="cantidad">Cantidad de colores:</label>
-      <select id="cantidad" class="opciones">
-        <option value="6" id="option-1" class="option">6</option>
-        <option value="8" id="option-2" class="option">8</option>
-        <option value="9" id="option-3" class="option">9</option>
-      </select>
-      <button id="button" class="button">Generar</button>
-      <div id="paleta" class="paleta"></div>
+
+    <!-- Notificaciones accesibles (toast) -->
+    <div id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+    <div class="app">
+
+      <!-- Panel de controles -->
+      <aside class="panel-control">
+        <header>
+          <h1 class="titulo">Paleta de colores</h1>
+        </header>
+
+        <!-- Formato de color -->
+        <fieldset class="campo">
+          <legend class="campo-label">Formato</legend>
+          <div class="radio-grupo">
+            <label for="formato-hsl">HSL</label>
+            <input type="radio" id="formato-hsl" name="formato" value="hsl" checked />
+            <label for="formato-hex">HEX</label>
+            <input type="radio" id="formato-hex" name="formato" value="hex" />
+          </div>
+        </fieldset>
+
+        <!-- Color base -->
+        <div class="campo">
+          <label for="selector-color">Color base</label>
+          <div class="color-row">
+            <input type="color" id="selector-color" value="#6a0dad" />
+            <button id="btn-aleatorio" type="button" class="btn-secundario">
+              Aleatorio
+            </button>
+          </div>
+        </div>
+
+        <!-- Tipo de paleta -->
+        <div class="campo">
+          <label for="tipo-paleta">Tipo de paleta</label>
+          <select id="tipo-paleta" class="opciones">
+            <option value="complementario">Complementario</option>
+            <option value="analogo">Análogo</option>
+            <option value="triadico">Triádico</option>
+            <option value="monocromatico">Monocromático</option>
+          </select>
+        </div>
+
+        <!-- Cantidad de colores -->
+        <div class="campo">
+          <label for="cantidad">Cantidad de colores</label>
+          <select id="cantidad" class="opciones">
+            <option value="6">6</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+          </select>
+        </div>
+
+        <button id="btn-generar" type="button" class="btn-primario">
+          Generar paleta
+        </button>
+      </aside>
+
+      <!-- Panel de resultado -->
+      <main class="panel-resultado">
+
+        <section aria-label="Paleta generada">
+          <div id="paleta" class="paleta"></div>
+        </section>
+
+        <section class="historial" aria-label="Historial de paletas">
+          <h2 class="historial-titulo">Historial de paletas</h2>
+          <div id="historial-lista" class="historial-lista"></div>
+        </section>
+
+      </main>
     </div>
+
     <script src="index.js"></script>
   </body>
 </html>
