@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paleta de colores</title>
+    <link href="/styles.css/estilos.css" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Mona+Sans:ital,wght@0,200..900;1,200..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="contenedor">
+      <h1 class="titulo">Paleta de colores</h1>
+      <label for="color">Seleccioná un color:</label>
+      <input type="color" id="selector-color" />
+      <label for="cantidad">Cantidad de colores:</label>
+      <select id="cantidad" class="opciones">
+        <option value="6" id="option-1" class="option">6</option>
+        <option value="8" id="option-2" class="option">8</option>
+        <option value="9" id="option-3" class="option">9</option>
+      </select>
+      <button id="button" class="button">Generar</button>
+      <div id="paleta" class="paleta"></div>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
